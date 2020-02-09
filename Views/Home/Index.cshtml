@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model IndexViewModel
+
+<div style="width: 450px;" class="d-inline-block mr-5 ml-5">
+    <h2 class="display-4">Register</h2>
+   <form class="form-group container-fluid p-5 border float-left" asp-action="NewUser" asp-controller="Home" method="POST">
+    <span asp-validation-for="SingleUser.FirstName"></span>
+    <label asp-for="SingleUser.FirstName"></label>
+    <input class="form-control" asp-for="SingleUser.FirstName">
+
+    <span asp-validation-for="SingleUser.LastName"></span>
+    <label asp-for="SingleUser.LastName"></label>
+    <input class="form-control" asp-for="SingleUser.LastName">
+
+    <span asp-validation-for="SingleUser.Email"></span>
+    <label asp-for="SingleUser.Email"></label>
+    <input class="form-control" asp-for="SingleUser.Email">
+
+    <span asp-validation-for="SingleUser.Password"></span>
+    <label asp-for="SingleUser.Password"></label>
+    <input class="form-control" asp-for="SingleUser.Password">
+
+    <span asp-validation-for="SingleUser.ConfirmPassword"></span>
+    <label asp-for="SingleUser.ConfirmPassword"></label>
+    <input class="form-control mb-3" asp-for="SingleUser.ConfirmPassword">
+
+    <input class="btn btn-success btn-block" type="submit" value="Register">
+    </form>    
+
+</div>
+<div style="width: 450px;" class="d-inline-block align-top loginuser">
+    <h2 class="display-4">Login</h2>
+    <form class="form-group container-fluid p-5 border" asp-action="NewLogin" asp-controller="Home" method="POST">
+        <span asp-validation-for="SingleLogin.Email"></span>
+        <label asp-for="SingleLogin.Email"></label>
+        <input class="form-control" asp-for="SingleLogin.Email">
+
+        <span asp-validation-for="SingleLogin.Password"></span>
+        <label asp-for="SingleLogin.Password"></label>
+        <input class="form-control mb-4" asp-for="SingleLogin.Password">
+        
+        <input class="btn btn-success btn-block" type="submit" value="Login">
+    </form>    
+</div>

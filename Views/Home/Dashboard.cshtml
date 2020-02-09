@@ -1,0 +1,58 @@
+
+@model IndexViewModel
+<h1 class="d-inline-block">Welcome To the Wedding Planner</h1>
+
+<a class="float-right" asp-action="Logout">Logout</a>
+ 
+
+
+ <div class="wedtable">
+    <table class="w-4 table border">
+        <thead>
+            <tr>
+                <th>Wedding</th>
+                <th>Date</th>
+                <th>Guest</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach(Wedding plan in Model.AllWeddings)
+                {    
+                    <tr>
+                        <td><a asp-action="PlanInfo" asp-route-PlanId="@plan.WeddingId">@plan.WedderOne & @plan.WedderTwo</a></td>
+                        <td>@plan.WeddingDate.ToString("MMM dd, yyyy")</td>
+                        <td>@plan.guests.Count</td>
+                        @if(Model.NotAttending.Any(w => w.WeddingId == plan.WeddingId) && !Model.Creator.Any(w => w.WeddingId == plan.WeddingId))
+                        { 
+                            <td><form asp-action="RSVP" asp-controller="Home" method="post">
+                                <input asp-for="NewAssos.WeddingId" type="hidden" value="@plan.WeddingId">
+                                <input asp-for="NewAssos.UserId" type="hidden" value="@Model.UserId">
+                                <button class="btn btn-light" type="submit">RSVP</button>
+                            </form></td>
+                        }
+                        else if(Model.Attending.Any(w => w.WeddingId == plan.WeddingId) && !Model.Creator.Any(w => w.WeddingId == plan.WeddingId))
+                        {
+                            <td><form asp-action="UNRSVP" asp-controller="Home" method="post">
+                                <input asp-for="NewAssos.WeddingId" type="hidden" value="@plan.WeddingId">
+                                <input asp-for="NewAssos.UserId" type="hidden" value="@Model.UserId">
+                                <button class="btn btn-light" type="submit">Un-RSVP</button>
+                            </form></td>
+                        }
+                        else if(Model.Creator.Any(w => w.WeddingId == plan.WeddingId))
+                        {
+                            <td><form asp-action="Delete" asp-controller="Home" method="post">
+                                <input asp-for="NewAssos.WeddingId" type="hidden" value="@plan.WeddingId">
+                                <input asp-for="NewAssos.UserId" type="hidden" value="@Model.UserId">
+                                <button class="btn btn-light" type="submit">Delete</button>
+                            </form></td>
+                        }
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+    <a class="btn btn-danger" asp-action="NewWedding">New Wedding</a>
+ </div>

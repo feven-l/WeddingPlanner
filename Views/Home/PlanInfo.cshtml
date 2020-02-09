@@ -1,0 +1,18 @@
+
+@model Wedding
+
+<h1 class="display-4 mb-5">@Model.WedderOne and @Model.WedderTwo's Wedding </h1>
+
+<h4 class="display-5 mb-5">Date: @Model.WeddingDate.ToString("MMM dd, yyyy")</h4>
+
+<div class="border">
+    <ul>
+        <h3>Guests Attending:</h3>
+        @{
+            foreach(Association guest in @Model.guests)
+            {
+                <li class="ml-5 list-unstyled">@guest.User.FirstName @guest.User.LastName</li>
+            }
+        }
+    </ul>
+</div>
